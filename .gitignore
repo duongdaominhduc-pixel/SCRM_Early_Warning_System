@@ -22,13 +22,13 @@ Thumbs.db
 
 # Project Specific Data & Large Files
 # DO NOT push raw data or large models to Git
-0. internal data/
-*.csv
-*.xlsx
-*.parquet
+# Data and Models
 *.pt
 *.pth
 *.bin
+*.h5
+*.pkl
+*.safetensors
 *.h5
 *.pkl
 *.safetensors

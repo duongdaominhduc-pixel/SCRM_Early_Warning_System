@@ -1,0 +1,12 @@
+feature,mean_abs_shap
+TTS_days,0.8471022
+burn_rate_daily,0.7168517
+supplier_risk_class,0.25980002
+pct_late,0.22388823
+avg_delivery_delay,0.20989777
+severity_score_nlp,0.069709964
+disruption_event_flag,0.0073518003
+quality_incident_rate,0.0
+criticality_class,0.0
+news_risk_score,0.0
+severity_score,0.0
