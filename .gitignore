@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Virtual Environment
+venv/
+env/
+.env
+
+# VS Code / IDE
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Project Specific Data & Large Files
+# DO NOT push raw data or large models to Git
+0. internal data/
+*.csv
+*.xlsx
+*.parquet
+*.pt
+*.pth
+*.bin
+*.h5
+*.pkl
+*.safetensors
+
+# Logs and outputs
+*.log
+output/

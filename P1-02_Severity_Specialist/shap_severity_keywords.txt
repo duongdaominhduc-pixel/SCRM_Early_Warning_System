@@ -1,0 +1,4 @@
+SHAP Explanation Mock / Feature Weights (Context Shells & Focal Loss):
+
+Highly correlated features driving HIGH RISK alert levels:
+- strike, labor dispute, delay, port congestion, cargo halt, shut down

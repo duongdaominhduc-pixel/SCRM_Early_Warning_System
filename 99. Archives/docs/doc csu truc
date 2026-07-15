@@ -1,0 +1,12 @@
+import os
+
+folder_path = r"/Users/lelinh/Documents/BBKH"
+
+for root, dirs, files in os.walk(folder_path):
+    print(f"\n📁 {root}")
+
+    for d in dirs:
+        print(f"   📂 {d}")
+
+    for f in files:
+        print(f"   📄 {f}")

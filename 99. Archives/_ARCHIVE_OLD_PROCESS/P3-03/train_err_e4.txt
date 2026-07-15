@@ -1,0 +1,110 @@
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 1452.67it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 1572.47it/s]
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:01<00:00,  1.32s/it]Writing model shards: 100%|##########| 1/1 [00:01<00:00,  1.33s/it]
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:00<00:00,  1.47it/s]Writing model shards: 100%|##########| 1/1 [00:00<00:00,  1.44it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 2867.67it/s]
+Traceback (most recent call last):
+  File "D:\3. Research & Contest\BBKH_PAPA\drive-download-20260620T082012Z-3-001\P3-03\resume_train_c1.py", line 182, in <module>
+    print(classification_report(all_labels, all_preds,
+          ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+        target_names=['SAFE(0)','LOW_RISK(1)','HIGH_RISK(2)'], zero_division=0))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AD\AppData\Local\Programs\Python\Python313\Lib\site-packages\sklearn\utils\_param_validation.py", line 218, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\AD\AppData\Local\Programs\Python\Python313\Lib\site-packages\sklearn\metrics\_classification.py", line 3097, in classification_report
+    raise ValueError(
+    ...<3 lines>...
+    )
+ValueError: Number of classes, 2, does not match size of target_names, 3. Try specifying the labels parameter
+          ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\AD\AppData\Local\Programs\Python\Python313\Lib\site-packages\transformers\utils\import_utils.py", line 52, in _is_package_available
+    spec = importlib.util.find_spec(pkg_name)
+  File "<frozen importlib.util>", line 100, in find_spec
+  File "<frozen importlib._bootstrap>", line 1262, in _find_spec
+  File "<frozen importlib._bootstrap_external>", line 1559, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 1533, in _get_spec
+  File "<frozen importlib._bootstrap_external>", line 1660, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 124, in _path_join
+KeyboardInterrupt
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 2372.59it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 1461.62it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 1776.44it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 1521.59it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 1387.29it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 1282.58it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 1383.34it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 2247.84it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 2456.39it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 3106.63it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 1743.57it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 2019.24it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 6213.43it/s]
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:00<00:00,  1.76it/s]Writing model shards: 100%|##########| 1/1 [00:00<00:00,  1.75it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 5988.98it/s]
+Traceback (most recent call last):
+  File "D:\3. Research & Contest\BBKH_PAPA\drive-download-20260620T082012Z-3-001\P3-03\resume_train_c1.py", line 182, in <module>
+    print(classification_report(all_labels, all_preds,
+          ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+        target_names=['SAFE(0)','LOW_RISK(1)','HIGH_RISK(2)'], zero_division=0))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AD\AppData\Local\Programs\Python\Python313\Lib\site-packages\sklearn\utils\_param_validation.py", line 218, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\AD\AppData\Local\Programs\Python\Python313\Lib\site-packages\sklearn\metrics\_classification.py", line 3097, in classification_report
+    raise ValueError(
+    ...<3 lines>...
+    )
+ValueError: Number of classes, 2, does not match size of target_names, 3. Try specifying the labels parameter
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 6745.03it/s]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 1141.01it/s]
+Traceback (most recent call last):
+  File "D:\3. Research & Contest\BBKH_PAPA\drive-download-20260620T082012Z-3-001\P3-03\resume_train_c1.py", line 182, in <module>
+    print(classification_report(all_labels, all_preds,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        labels=[0, 1, 2],
+        ^^^^^^^^^^^^^^^^^
+  File "C:\Users\AD\AppData\Local\Programs\Python\Python313\Lib\site-packages\sklearn\utils\_param_validation.py", line 218, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\AD\AppData\Local\Programs\Python\Python313\Lib\site-packages\sklearn\metrics\_classification.py", line 3097, in classification_report
+    raise ValueError(
+    ...<3 lines>...
+    )
+ValueError: Number of classes, 2, does not match size of target_names, 3. Try specifying the labels parameter
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 2232.42it/s]
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|##########| 1/1 [00:01<00:00,  1.87s/it]Writing model shards: 100%|##########| 1/1 [00:01<00:00,  1.92s/it]
+Loading weights:   0%|          | 0/104 [00:00<?, ?it/s]Loading weights:  89%|########9 | 93/104 [00:00<00:00, 891.70it/s]Loading weights: 100%|##########| 104/104 [00:00<00:00, 971.41it/s]
+Traceback (most recent call last):
+  File "D:\3. Research & Contest\BBKH_PAPA\drive-download-20260620T082012Z-3-001\P3-03\resume_train_c1.py", line 229, in <module>
+    pred_df.to_csv(eval_out / 'test_predictions.csv', index=False, encoding='utf-8-sig')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AD\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\util\_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\AD\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\generic.py", line 3989, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        path_or_buf,
+        ^^^^^^^^^^^^
+    ...<14 lines>...
+        storage_options=storage_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\AD\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\io\formats\format.py", line 1014, in to_csv
+    csv_formatter.save()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\AD\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\io\formats\csvs.py", line 251, in save
+    with get_handle(
+         ~~~~~~~~~~^
+        self.filepath_or_buffer,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        storage_options=self.storage_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ) as handles:
+    ^
+  File "C:\Users\AD\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+        handle,
+    ...<3 lines>...
+        newline="",
+    )
+PermissionError: [Errno 13] Permission denied: 'D:\\3. Research & Contest\\BBKH_PAPA\\drive-download-20260620T082012Z-3-001\\P3-04\\test_predictions.csv'

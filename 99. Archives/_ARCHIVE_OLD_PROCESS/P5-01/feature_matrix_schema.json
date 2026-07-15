@@ -1,0 +1,14 @@
+{
+  "part_group": "str",
+  "week": "str",
+  "burn_rate_daily": "float64",
+  "TTS_days": "float64",
+  "avg_delivery_delay": "float64",
+  "pct_late": "float64",
+  "quality_incident_rate": "float64",
+  "supplier_risk_class": "int64",
+  "criticality_class": "int64",
+  "news_risk_score": "float64",
+  "disruption_event_flag": "int64",
+  "severity_score_nlp": "float64"
+}

@@ -1,0 +1,87 @@
+---
+title: SCRM-EWS Pipeline Architecture
+---
+flowchart TD
+    subgraph PHASE0["PHASE 0 · Thu thập & Gán nhãn (P3-01/02)"]
+        direction TB
+        A1["🌐 Khai thác tin tức\n2.554 bài báo\ntiếng Anh"]
+        A2["🧹 Tiền xử lý văn bản\nHTTP→text, dedup,\nnormalize unicode"]
+        A3["🏷️ Gán nhãn thủ công\n700 bài × 3 nhãn\nSafe/LowRisk/HighRisk\nFleiss κ ≥ 0.70"]
+        A4["📊 Phân loại loại\ngián đoạn (rule-based)\n6 danh mục\n(PORT/LABOR/...)"]
+        A1 --> A2 --> A3
+        A2 --> A4
+    end
+
+    subgraph PHASE1["PHASE 1 · NLP Layer — DistilBERT C1 (P3-03/04)"]
+        direction TB
+        B1["✂️ Tokenize\ntitle + [SEP] + content\nMAX_LEN=512"]
+        B2["🤖 DistilBERT\ndistilbert-base-uncased\nFine-tune 5 epochs\nLR=2e-5, BS=16\nclass_weight=balanced\nLabel-2 oversample ×5"]
+        B3["📋 Đánh giá\nChronological 560/70/70\nMacro-F1 | AUC-ROC\nConfusion Matrix"]
+        B4["🔍 spaCy NER\nen_core_web_trf\nLocation / Org / Date"]
+        A3 --> B1 --> B2 --> B3
+        B2 --> B4
+    end
+
+    subgraph PHASE2["PHASE 2 · Mapping Layer — 3D Soft Join (P4-05)"]
+        direction TB
+        C1["📰 structured_risk_events\n(event_week, country,\ndisruption_type, risk_class)"]
+        C2["🏭 parts_master\n(supplier_id, country,\npart_family, criticality)"]
+        C3["⚙️ 3D Soft Join\nT: cửa sổ [week-4, week]\nG: supplier_country match\nC: CATEGORY_MAP\ndisruption→part_family"]
+        C4["📦 matched_events\nper (part_family × week)\nnews_risk_score [0,1]\ndisruption_event_flag {0,1}\nseverity_score [0,10]"]
+        B3 --> C1
+        B4 --> C1
+        C1 --> C3
+        C2 --> C3
+        C3 --> C4
+    end
+
+    subgraph PHASE3A["PHASE 3A · Operational Features (P4-01…P4-04)"]
+        direction TB
+        D1["📦 purchase_orders\n29.666 POs\n55.85% late"]
+        D2["🏪 inventory_levels\n280.800 bản ghi\nTTS_days, burn_rate_daily"]
+        D3["⚠️ quality_incidents\n368 sự cố"]
+        D4["📈 P4-03: Delivery Delays\navg_delay, pct_late\nper (supplier × week)"]
+        D5["⏳ P4-02: SWIP\nTTS_days = on_hand / burn_rate\nper (part × site × week)"]
+        D6["🔬 P4-04: Stationarity\nADF + KPSS\nTTS→Stationary\navg_delay→Non-stationary"]
+        D1 --> D4
+        D2 --> D5 --> D6
+        D3 --> D4
+    end
+
+    subgraph PHASE3B["PHASE 3B · Feature Matrix & ML (P5-01…P5-14)"]
+        direction TB
+        E1["📊 Feature Matrix\n1.248 rows × 10 features\n8 part_family × 156 weeks\n(P5-01)"]
+        E2["🎯 y_true (P5-02)\nPhương án A:\nstockout OR\n(avg_delay≥3 AND pct_late≥50%)\n53.5% positive"]
+        E3["🔀 Walk-Forward CV\n5 folds × 13 weeks\nExpanding window\n(P5-06)"]
+        E4["📉 LR Baseline\nOperational only\nF1=0.74 | AUC=0.72\n(P5-07)"]
+        E5["🌲 XGBoost\n10 features (ops+NLP)\nF1→? | AUC→?\n(P5-08)"]
+        E6["📊 SHAP Analysis\nFeature importance\nburnrate=0.477\npct_late=0.240\n(P5-10)"]
+        E7["📍 Youden's J\nOptimal threshold\n= 0.48 (mock)\n(P5-11)"]
+        E8["🚨 Weekly Alerts\nAlert rate: 23.5%\n(P5-12)"]
+        E9["⏱️ Lead Time\nof Warning (LTW)\nmean ≥ 2 weeks target\n(P5-13)"]
+        E1 --> E3
+        E2 --> E3
+        E3 --> E4
+        E3 --> E5
+        E5 --> E6
+        E5 --> E7 --> E8 --> E9
+    end
+
+    %% Cross-phase connections
+    D4 --> E1
+    D5 --> E1
+    D3 --> E1
+    C4 --> E1
+
+    %% Styling
+    classDef phase0 fill:#e8f4f8,stroke:#2196F3,color:#000
+    classDef phase1 fill:#fff3e0,stroke:#FF9800,color:#000
+    classDef phase2 fill:#e8f5e9,stroke:#4CAF50,color:#000
+    classDef phase3a fill:#fce4ec,stroke:#E91E63,color:#000
+    classDef phase3b fill:#f3e5f5,stroke:#9C27B0,color:#000
+
+    class A1,A2,A3,A4 phase0
+    class B1,B2,B3,B4 phase1
+    class C1,C2,C3,C4 phase2
+    class D1,D2,D3,D4,D5,D6 phase3a
+    class E1,E2,E3,E4,E5,E6,E7,E8,E9 phase3b
