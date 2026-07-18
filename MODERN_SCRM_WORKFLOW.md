@@ -367,7 +367,7 @@ df_train = df_sorted.dropna(subset=['y2_shift1', 'y2_shift2'])
 - `shift(-1)` tại hàng W = lấy giá trị của hàng W+1
 - X tại W dự báo y tại W+1 → đúng bản chất forecasting
 
-**Gate**: Kiểm tra positive rate của y2_shift1 và y2_shift2 trong [30%, 70%]. Nếu ngoài range → DỪNG.
+**Gate**: Chấp nhận Natural Imbalance (Tỷ lệ dương tự nhiên ~3.16%). Bãi bỏ luật ép positive rate trong range [30%, 70%].
 
 **Output**:
 - `y2_shifted.parquet` — với cả 2 cột `y2_shift1`, `y2_shift2`

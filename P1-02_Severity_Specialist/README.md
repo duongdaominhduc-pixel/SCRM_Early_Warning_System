@@ -5,10 +5,10 @@ P1-02 là module cốt lõi của Tầng Nhận thức, nơi dữ liệu "rủi 
 
 ## 🎯 Các kỹ thuật cốt lõi & Kết quả Audit (Methodology)
 
-### 1. Kỹ thuật Context Shells
+### 1. Taxonomy-Conditioned AI via Context Shells
 Thay vì dùng "Token Injection" thô sơ (`[LABOR_DISPUTE]`), hệ thống sử dụng cấu trúc **Context Shells**: 
 `Context: This event involves {taxonomy}. Document: {text}`
-Kỹ thuật này giúp mô hình (DistilBERT) được cung cấp bối cảnh ngữ nghĩa đầy đủ, nâng cao đáng kể độ chuẩn xác khi dự báo Severity.
+Kỹ thuật này giúp mô hình (DistilBERT) được cung cấp bối cảnh ngữ nghĩa đầy đủ, đóng vai trò như một bộ lọc "Nhận thức điều kiện" (Taxonomy-Conditioned), nâng cao đáng kể độ chuẩn xác khi dự báo Severity.
 
 ### 2. Tránh bẫy Double Regularization (Audited: PASS)
 Theo Gold Standard, việc kết hợp đồng thời **Focal Loss** và **Label Smoothing** trên một bộ dữ liệu quá nhỏ sẽ dẫn tới hiện tượng "Sụp đổ dải đầu ra" (Output Range Collapse), khiến mô hình trở nên underconfident và đoán mọi mẫu ở loanh quanh 0.5. 

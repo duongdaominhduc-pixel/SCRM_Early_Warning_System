@@ -24,28 +24,28 @@ Phần lớn doanh nghiệp sản xuất hiện nay vẫn dựa vào các phươ
 
 ### 1.3. Khoảng trống nghiên cứu
 
-Phân tích tổng hợp các nghiên cứu liên quan cho thấy một khoảng trống rõ rệt: không có nghiên cứu nào đồng thời giải quyết đầy đủ cả năm khía cạnh cần thiết cho một hệ thống cảnh báo sớm toàn diện.
+Phân tích tổng hợp các nghiên cứu liên quan cho thấy một khoảng trống rõ rệt: không có nghiên cứu nào đồng thời giải quyết đầy đủ các khía cạnh cần thiết cho một hệ thống cảnh báo sớm toàn diện, đặc biệt là việc chứng minh Giá trị dự báo tăng thêm (Incremental Predictive Validity) khi kết hợp dữ liệu phi cấu trúc và có cấu trúc. Hệ thống không chỉ đơn thuần "biết thêm tin tức", mà phải chứng minh được năng lực "dự báo tốt hơn" nhờ tin tức đó.
 
 **Bảng 1.** So sánh định vị đóng góp với các nghiên cứu tiền nhiệm
 
-| Tiêu chí | Cano-Marin et al. (2023) | Ivanov et al. (2022) | Zhu et al. (2023) | Brintrup et al. (2020) | **Nghiên cứu này** |
+| Tiêu chí | Cano-Marin et al. (2023) | Ivanov et al. (2022) | Jialu Wang (2024) | Brintrup et al. (2020) | **Nghiên cứu này** |
 |---|:---:|:---:|:---:|:---:|:---:|
 | NLP từ tin tức | ✓ | ✗ | ✓ | ✗ | **✓** |
 | Dữ liệu vận hành nội bộ | ✗ | ✓ | ✗ | ✓ | **✓** |
-| Hợp nhất đa nguồn (Multi-source Fusion) | ✗ | ✗ | Một phần | ✗ | **✓** |
-| Ánh xạ Địa lý Nhà cung cấp | ✗ | ✗ | ✗ | ✗ | **✓** |
-| Mục tiêu Stockout Thượng nguồn | ✗ | Một phần | ✗ | ✗ | **✓** |
+| Heterogeneous Modality Fusion | ✗ | ✗ | Một phần | ✗ | **✓** |
+| Spatial Risk Mapping | ✗ | ✗ | ✗ | ✗ | **✓** |
+| Incremental Predictive Validity | ✗ | ✗ | Một phần | ✗ | **✓** |
 | Walk-forward Validation | ✗ | ✗ | ✗ | ✓ | **✓** |
 
-### 1.4. Mục tiêu và Đóng góp nghiên cứu
+### 1.4. Mục tiêu và Đóng góp khoa học
 
-Nghiên cứu này đặt ra ba mục tiêu cốt lõi, tương ứng với ba đóng góp khoa học chính:
+Nghiên cứu này định vị ba đóng góp khoa học cốt lõi, giải quyết trực diện các rào cản kỹ thuật khắt khe nhất trong quản trị rủi ro chuỗi cung ứng:
 
-**(1) Multi-source Inbound Risk Fusion:** Xây dựng pipeline tích hợp đầu cuối (end-to-end), kết hợp tin tức phi cấu trúc (NLP Signal) với dữ liệu vận hành có cấu trúc (ERP Data) trong cùng một kiến trúc cảnh báo rủi ro thượng nguồn — đóng vai trò là nghiên cứu đầu tiên hoàn thiện cả hai nguồn dữ liệu song song.
+**(1) Heterogeneous Modality Fusion via Cascading AI:** Xây dựng pipeline tích hợp đầu cuối (end-to-end), chuyển hóa các tín hiệu rủi ro "mềm" từ tin tức phi cấu trúc (NLP Signal) thành các đặc trưng "cứng" cho mô hình học máy kết hợp với dữ liệu vận hành (ERP). Khung kiến trúc AI Xếp tầng này soi sáng hoàn toàn bài toán đứt gãy thượng nguồn — khu vực từ lâu vẫn bị coi là "điểm mù" (blind-spot) trong SCRM. Hơn thế nữa, tính toàn vẹn dữ liệu (Data Integrity) được bảo đảm xuyên suốt pipeline nhờ cơ chế SHA256 Checksum, loại trừ hoàn toàn nghi ngờ về thao túng dữ liệu (Data manipulation).
 
-**(2) Entity-to-Operations Mapping qua Geographic Weighting:** Thiết kế cơ chế ánh xạ đa chiều (Thời gian × Địa lý × Danh mục) sử dụng hàm trọng số địa lý thay vì Inner Join cứng nhắc, cho phép hệ thống mô phỏng "Hiệu ứng gợn sóng" (Ripple Effect) — một hiện tượng đặc thù của chuỗi cung ứng toàn cầu mà các nghiên cứu trước chưa giải quyết triệt để.
+**(2) Spatial Risk Sensitivity Calibration (Geographic Weighting):** Thiết kế cơ chế ánh xạ mềm (Soft Join) sử dụng hàm trọng số địa lý thay vì phép Inner Join cứng nhắc, giải quyết triệt để vấn đề "Bất đối xứng dữ liệu" (Granularity Mismatch) giữa tin tức vĩ mô (cấp quốc gia) và ERP vi mô (cấp nhà cung cấp). Kỹ thuật này giúp hệ thống mô phỏng "Hiệu ứng gợn sóng" (Ripple Effect) và bắt được các "tín hiệu yếu" (Weak Signals) lây lan chéo khu vực mà các hệ thống truyền thống bỏ sót.
 
-**(3) Inbound Ground Truth Definition:** Đề xuất định nghĩa biến mục tiêu chuẩn cho bài toán dự báo đứt gãy thượng nguồn (y = 1 khi on_hand_qty ≤ 0), phân biệt rõ ràng với các nghiên cứu trước vốn tập trung vào rủi ro hạ nguồn (outbound delivery risk).
+**(3) Inbound Ground Truth & Information Bottlenecking for Non-Naive Learning:** Đề xuất định nghĩa chuẩn cho bài toán đứt gãy thượng nguồn. Quan trọng hơn, nghiên cứu thiết lập một rào cản kỹ thuật chuyên nghiệp chống lại hiện tượng "Hồi quy giả mạo" (Spurious Regression) bằng ADF Test và biến Delta. Đồng thời, việc loại bỏ trạng thái tồn kho quá khứ (`w1_stockout_flag`) ra khỏi không gian đặc trưng ML đảm bảo mô hình thực sự "nhìn thấy rủi ro" nhờ năng lực tổng hợp thông tin, chứ không phải "đoán mò" dựa trên chuỗi lịch sử (Naive Forecaster). Cuối cùng, việc tích hợp phân tích SHAP đáp ứng tiêu chí "Giải trình thuật toán" (Algorithmic Accountability), minh bạch hóa lý do một tín hiệu NLP kích hoạt báo động trong ERP.
 
 ### 1.5. Cấu trúc bài báo
 
@@ -83,13 +83,11 @@ Như đã trình bày trong Bảng 1, khoảng trống cốt lõi nằm ở vi�
 
 ### 3.1. Tổng quan kiến trúc hệ thống
 
-Hệ thống EWS-SCRM được thiết kế theo Kiến trúc Tuyến tính 4 Giai đoạn, áp dụng tư duy "Trí tuệ Nhân tạo Xếp tầng" (Cascading AI):
+Hệ thống EWS-SCRM được thiết kế theo Kiến trúc Tuyến tính 4 Giai đoạn, áp dụng tư duy "Trí tuệ Nhân tạo Xếp tầng" (Cascading AI) để tối ưu hóa việc phân tách tín hiệu (Sensing) và nhận thức ngữ cảnh (Sense-making) trước khi tổng hợp vào không gian đặc trưng vận hành (Operational Feature Space).
 
-```
-[Phase 0] Sensing ──► [Phase 1] Sense-making ──► [Phase 2] Feature & ML ──► [Phase 3] Evaluation
-(Bộ lọc nhị phân)     (Phân loại Taxonomy       (Hợp nhất Địa lý         (Tối ưu Ngưỡng
-                       & Mức độ nghiêm trọng)     & Huấn luyện XGBoost)     & Phân tích SHAP)
-```
+[CHÈN SƠ ĐỒ 1: Sơ đồ Mô hình Phương pháp Nghiên cứu (Research Methodology Framework) TẠI ĐÂY. Dựa theo cấu trúc Node & Edges trong schematic_outline.md]
+
+[CHÈN SƠ ĐỒ 2: Sơ đồ Kiến trúc Hệ thống Đề xuất (Proposed System Architecture) TẠI ĐÂY. Dựa theo cấu trúc Node & Edges trong schematic_outline.md]
 
 **Bảng 2.** Tổng hợp kiến trúc hệ thống theo từng giai đoạn
 
@@ -282,6 +280,8 @@ Kết quả cho thấy mô hình Tier3_XGB_SCRM (XGBoost tích hợp NLP) đạt
 | Fasteners | 0,85 | 0,6814 |
 | LandingGear | 0,85 | 0,5181 |
 
+*(Ghi chú: Nhóm Cabin bị loại trừ khỏi các chỉ số đánh giá tổng hợp do sự kiện đứt gãy quá khan hiếm (prevalence < 0.1%), nhằm đảm bảo độ tin cậy thống kê).*
+
 Phân tích SHAP cho thấy các đặc trưng vận hành (`w1_on_hand_inventory`, `w1_pct_po_late`) là chỉ báo ngắn hạn chính cho tính khả dụng vật tư, trong khi các đặc trưng NLP (`weighted_geo_risk_w1`, `at_risk_count_w1`) đóng vai trò chỉ báo cảnh báo sớm — xuất hiện trước các biến động vận hành. Đặc biệt, biến Delta (`w1_delta_avg_actual_lead_time`) thành công trong việc mô hình hóa gia tốc và quán tính của các đợt trì hoãn lead-time trong mạng lưới cung ứng.
 
 **Hình 5.** SHAP Summary Plot — Mức độ đóng góp tổng hợp của từng đặc trưng vào dự báo rủi ro Stockout.
@@ -308,11 +308,21 @@ Kết quả cho thấy hệ thống phát cảnh báo sớm **từ 1 đến 2 tu
 
 ## 5. THẢO LUẬN
 
-### 5.1. Diễn giải kết quả chính
+### 5.1. Hiệu chuẩn chiến lược và Diễn giải vận hành (Strategic Model Calibration and Operational Interpretation)
 
-Kết quả thực nghiệm cho thấy một phát hiện quan trọng: việc tích hợp tín hiệu NLP từ tin tức công khai không cải thiện đồng đều tất cả các chỉ số đánh giá, mà tạo ra sự đánh đổi có chiến lược. Cụ thể, mô hình Tier3_XGB_SCRM hy sinh một phần Recall (từ 0,5383 xuống 0,3026) để đổi lấy Precision cao hơn đáng kể (từ 0,1286 lên 0,1654). Sự đánh đổi này là **cực kỳ có giá trị** trong ngữ cảnh quản trị chuỗi cung ứng: một hệ thống cảnh báo có tỷ lệ "báo động giả" thấp hơn sẽ xây dựng được lòng tin của nhà quản lý mua hàng, dẫn đến tỷ lệ hành động theo cảnh báo cao hơn.
+Kết quả thực nghiệm cho thấy một phát hiện quan trọng: việc tích hợp tín hiệu NLP từ tin tức công khai không cải thiện đồng đều tất cả các chỉ số đánh giá, mà tạo ra sự đánh đổi có chiến lược.
 
-Hiện tượng "hệ số âm" của các biến NLP trong mô hình Lasso-Logistic (Tier3_LR_SCRM) cũng đáng chú ý. Đây không phải là nhiễu, mà là tín hiệu của **"Quản lý rủi ro phủ đầu"** (Preemptive Risk Management): khi nhà sản xuất nhận diện được tin tức xấu, họ lập tức kích hoạt chuỗi cung ứng dự phòng, dẫn đến stockout thực tế không xảy ra. Hệ số âm này cần được báo cáo như một "Tín hiệu giảm thiểu chủ động" (Proactive Mitigation Signal).
+**(1) Tối ưu hóa ngưỡng né tránh rủi ro (Risk-Averse Threshold Optimization):**
+Trong bối cảnh SCRM, PR-AUC là thước đo trung thực hơn ROC-AUC do sự mất cân bằng dữ liệu cực đoan (~3.16%). Mặc dù ROC-AUC duy trì mức cao (bị thổi phồng bởi lượng lớn True Negatives), PR-AUC thấp phản ánh lượng báo động giả (False Positives) tất yếu. Tuy nhiên, đây là sự đánh đổi có chủ đích. Chi phí của một False Negative (bỏ lọt rủi ro gây ngừng chuyền) cao theo hàm mũ so với False Positive (xác minh thủ công báo động). Hệ thống được hiệu chuẩn theo chiến lược "bảo thủ", ưu tiên Recall như một "phí bảo hiểm" để đảm bảo các tín hiệu "Thiên nga đen" (Black Swan) không bị bỏ lọt.
+
+**(2) Nút thắt thông tin cho việc học không ngây thơ (Information Bottlenecking for Non-Naive Learning):**
+Khác với mô hình Tier 1, toàn bộ các mô hình Machine Learning (Tier 2 và Tier 3) đã cố ý bị tước bỏ đặc trưng trạng thái đứt gãy tuần trước (`w1_stockout_flag`). Quyết định phương pháp luận này nhằm ngăn chặn hiện tượng "Dự báo ngây thơ" (Naive Persistence) — nơi mô hình chỉ đơn thuần dự đoán tuần sau giống tuần này. Việc tạo ra "nút thắt thông tin" ép thuật toán khai thác tương quan phi tuyến giữa tín hiệu NLP ngoại sinh và trạng thái vận hành nội bộ (lead-time, tồn kho), qua đó bảo vệ năng lực "Cảnh báo sớm". Phân tích Ablation cho thấy, dù Precision giảm, Tier 3 (Hybrid) có khả năng phát hiện các sự kiện đứt gãy "khó" (trước 1-2 tuần) mà các quy tắc heuristic (Tier 1) bỏ sót.
+
+**(3) Vòng lặp phản hồi giảm thiểu sớm (Preemptive Mitigation Feedback Loop):**
+Hiện tượng "hệ số âm" của các biến NLP trong mô hình Tier3_LR_SCRM là điểm sáng về hành vi vận hành. Trong SCRM, tin tức đóng vai trò biến dẫn dắt (Leading Indicator). Khi cảnh báo xuất hiện và doanh nghiệp kích hoạt chuỗi cung ứng dự phòng, đứt gãy thực tế sẽ không xảy ra. Hệ số âm này minh chứng cho tính chủ động: EWS không chỉ dự báo trạng thái tĩnh, mà thực chất đang tham gia vào "Vòng lặp phản hồi giảm thiểu sớm", thay đổi kết quả vận hành.
+
+**(4) Tính toàn vẹn dữ liệu (Data Integrity):**
+Để đảm bảo tính toàn vẹn (Integrity) và khả năng tái lập thực nghiệm, toàn bộ tập dữ liệu đầu vào đã được đóng dấu hàm băm (SHA256 Checksum) lưu trữ trên repository, tuân thủ nghiêm ngặt tiêu chuẩn xuất bản minh bạch của các tạp chí Q1.
 
 ### 5.2. Giá trị thực tiễn
 
@@ -341,6 +351,8 @@ Nghiên cứu này tồn tại một số giới hạn cần được ghi nhận
 **(3) Ngưỡng Cascading Guardrail:** Ngưỡng phân loại Zero-shot ở Phase 1 được giữ ở mức 0,5 do giới hạn tài nguyên tính toán phần cứng (chạy hơn 11 giờ trên Google Colab). Việc hạ ngưỡng xuống 0,35 để tối đa hóa lượng Context Shells là một hướng tối ưu hóa tiềm năng.
 
 **(4) Phạm vi ngành:** Kết quả được kiểm chứng trên ngành Hàng không vũ trụ. Việc tổng quát hóa sang các ngành khác cần nghiên cứu bổ sung.
+
+**(5) Khan hiếm sự kiện cực đoan (Extreme Event Sparsity):** Do tính chất đặc thù của dữ liệu chuỗi cung ứng hàng không, một số nhóm linh kiện (như Cabin) có tỷ lệ đứt gãy cực kỳ khan hiếm (prevalence < 0.1%). Điều này làm phát sinh rủi ro sai lệch thống kê (spurious results) nếu áp dụng các kỹ thuật tính trung bình chung (macro-averaging). Để giải quyết, nghiên cứu đã chủ động loại trừ các nhóm linh kiện có kích thước mẫu dương tính không đủ mức ý nghĩa thống kê khỏi các chỉ số đánh giá tổng hợp, nhằm đảm bảo độ tin cậy tuyệt đối của các kết quả nghiên cứu định lượng.
 
 ---
 

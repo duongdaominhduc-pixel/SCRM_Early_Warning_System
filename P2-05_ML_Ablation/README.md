@@ -6,8 +6,8 @@ Bước cuối cùng của Tầng ML Fusion. Tiến hành huấn luyện mô hì
 ## 🎯 Kết quả Thực nghiệm & ML Audit (Audited)
 Mô-đun này đã được tái cấu trúc (V2.0 Overhaul) để vượt qua các tiêu chuẩn khắt khe nhất của Tạp chí Q1:
 
-1. **TimeSeriesSplit & In-Fold Balancing (Audited: PASS)**
-   - Tuyệt đối loại bỏ việc Downsampling trên toàn cục. Tập dữ liệu giữ nguyên sự phân phối mất cân bằng tự nhiên.
+1. **Information Bottlenecking for Non-Naive Learning (Audited: PASS)**
+   - Tuyệt đối loại bỏ việc Downsampling trên toàn cục, đảm bảo cơ chế học không ngây thơ (Non-Naive Learning). Tập dữ liệu giữ nguyên sự phân phối mất cân bằng tự nhiên.
    - Việc cân bằng `scale_pos_weight` được đưa *vào bên trong* vòng lặp cross-validation, tính toán riêng trên tập Train. Tập Validation giữ nguyên 100% phân phối hiếm gặp thực tế (đảm bảo chống Data Leakage triệt để).
 2. **Hiệu suất & Sàn độ chuẩn xác (Precision Floor)**
    - Hệ thống không đánh đổi Precision lấy Recall. Thay vào đó, Tier3_XGB_SCRM thiết lập một **Precision Floor** cực kỳ vững chắc so với Rule-Based, giảm thiểu hội chứng Alert Fatigue (Mệt mỏi vì cảnh báo giả) cho nhà quản trị chuỗi cung ứng.

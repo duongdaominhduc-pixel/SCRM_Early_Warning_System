@@ -20,4 +20,4 @@ Performance comparisons between rule-based heuristics, operational baseline clas
 ## 2. Managerial Decision Utility & Key Findings
 - **Value of Information (V2.0 Overhaul):** While Baseline models may achieve higher recall through broad predictions, the addition of geographic-weighted NLP news features (SCRM models) establishes a significantly higher **Precision Floor**. This trade-off is highly desirable in real-world supply chain operations, as it directly mitigates **'Alert Fatigue'** and provides more reliable, actionable intelligence.
 - **Lead-Time Advantage:** While accuracy declines from W+1 to W+2, the SCRM model maintains its Precision advantage, providing actionable early warnings up to two weeks in advance.
-- **ERP Latency Stress Test (W-2 Shift):** Model F1-score with W-2 operational latency is 0.0926, demonstrating robust retention of predictive intelligence despite system latency.
+- **System Latency Sensitivity Analysis (W-2 Shift):** The model exhibits a quantifiable performance decay under ERP data latency (F1-score drops to 0.0926), yet maintains a predictive advantage over traditional rule-based heuristics.

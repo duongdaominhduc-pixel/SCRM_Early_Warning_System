@@ -5,10 +5,10 @@
 
 ## 🎯 Các kỹ thuật cốt lõi & Kết quả Audit (Methodology)
 
-### 1. Phân loại Zero-Shot Multi-label (Audited: PASS)
-Hệ thống sử dụng sức mạnh của mô hình ngôn ngữ lớn (`facebook/bart-large-mnli`) kết hợp hàm kích hoạt Sigmoid để gán đa nhãn. Tuyệt vời nhất là hệ thống **không ép buộc 100% gán nhãn**. Nếu không có rủi ro nào đạt chuẩn, mô hình sẽ gán nhãn `GENERAL_DISRUPTION` (Unknown). Điều này giải quyết triệt để lỗi "Forced Categorization" thường gặp.
+### 1. Phân loại theo kiến trúc UIE (Universal Information Extraction)
+Hệ thống sử dụng sức mạnh của mô hình ngôn ngữ lớn (`facebook/bart-large-mnli`) kết hợp hàm kích hoạt Sigmoid để gán đa nhãn, khắc phục giới hạn của 10 trường DistilBERT cố định trong V1.0. Tuyệt vời nhất là hệ thống **không ép buộc 100% gán nhãn**. Nếu không có rủi ro nào đạt chuẩn, mô hình sẽ gán nhãn `GENERAL_DISRUPTION` (Unknown). Điều này giải quyết triệt để lỗi "Forced Categorization" thường gặp.
 
-### 2. Định tuyến Danh mục tĩnh (Ontology Mapping)
+### 2. Định tuyến Khai phá Neo (Ontology-Anchored Discovery)
 Sử dụng kiến trúc Zero-Shot, hệ thống đối chiếu nội dung bài báo với Khung danh mục chuẩn (Static SCRM Ontology) đã được định nghĩa trước bởi chuyên gia (Domain Experts). Kết quả là mỗi bài báo được gán một loại sự kiện cụ thể (`final_event_type`) kèm theo Điểm tin cậy (`confidence_score`).
 
 ### 3. Cascading Guardrail (Audited: PASS - WITH FUTURE WORK)
