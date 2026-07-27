@@ -23,7 +23,7 @@ flowchart TD
 
     subgraph Phase_0 ["Block 1: Phase 0 - Sensing Layer (Section 3.3)"]
         C[Binary Filter<br>DistilBERT Risk Filtering]
-        D{{[QUALITY GATE 1]<br>Fleiss' Kappa = 0.785}}
+        D{{[QUALITY GATE 1]<br>Fleiss' Kappa = 0.785<br>Cohen's Kappa = 0.635}}
         C --> D
     end
 
@@ -70,7 +70,7 @@ flowchart TD
 
 **Block 1: Phase 0 - Sensing Layer (Corresponding to section 3.3)**
 - Node C: Binary Filter (Risk filtering using DistilBERT).
-- Node D: *[QUALITY GATE 1]* Fleiss' Kappa = 0.785 (dashed border, red color).
+- Node D: *[QUALITY GATE 1]* Fleiss' Kappa = 0.785 & Cohen's Kappa = 0.635 (dashed border, red color).
 
 **Block 2: Phase 1 - Sense-making Layer (Corresponding to section 3.4)**
 - Node E: Taxonomy Extraction (Multi-label Event Tagging).

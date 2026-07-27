@@ -189,7 +189,7 @@ The evaluation protocol enforces temporal integrity through a strict **chronolog
 
 ### 4.2. Phase 0: Gatekeeper Performance
 
-The binary filter achieved ROC-AUC = 0.8927 and PR-AUC = 0.8106 on the held-out test set. Post-calibration via temperature scaling (T = 0.9256), the Expected Calibration Error (ECE) was 0.0849. The proximity of the optimal temperature to unity (T $\approx$ 1.0) indicates that the base model already exhibits strong natural calibration — the scaling procedure primarily serves as a validation check rather than a corrective intervention.
+The binary filter achieved ROC-AUC = 0.8927 and PR-AUC = 0.8106 on the held-out test set. Post-calibration via temperature scaling (T = 0.9256), the Expected Calibration Error (ECE) was 0.0849. The proximity of the optimal temperature to unity (T $\approx$ 1.0) indicates that the base model already exhibits strong natural calibration — the scaling procedure primarily serves as a validation check rather than a corrective intervention. Furthermore, the model achieved a Cohen's $\kappa$ of 0.635 at the natural decision threshold (0.50), substantiating substantial Human-AI agreement and validating that the classifier successfully internalized the domain experts' risk taxonomy.
 
 ### 4.3. Phase 2: Ablation Study — Incremental Predictive Validity
 
