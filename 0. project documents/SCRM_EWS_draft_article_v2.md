@@ -235,23 +235,23 @@ The system maintains an LTG range of 1.0 to 3.2 weeks across all component famil
 
 ### Discussion
 
-### 5.1. Interpreting the Precision-Recall Trade-Off Under Asymmetric Cost
+### 4.6. Interpreting the Precision-Recall Trade-Off Under Asymmetric Cost
 
 The experimental results underscore a nuanced finding: NLP signal integration does not uniformly elevate all evaluation metrics but instead creates a strategically advantageous trade-off profile. Under extreme class imbalance (3.16% prevalence), PR-AUC provides a more discriminating evaluation criterion than ROC-AUC, as the latter can remain misleadingly high even when the classifier produces a substantial false-positive volume. The observed PR-AUC reflects this inherent challenge — yet the trade-off is operationally deliberate. In SCRM, the cost structure is fundamentally asymmetric: a missed disruption (false negative) can cascade into production halts, contractual penalties, and reputational damage, whereas a false positive incurs only the bounded cost of manual investigation. The system is therefore calibrated to prioritize Recall, treating the resulting false-positive overhead as an acceptable "insurance premium" against catastrophic low-frequency events.
 
-### 5.2. Information Bottleneck and the Non-Naive Learning Guarantee
+### 4.7. Information Bottleneck and the Non-Naive Learning Guarantee
 
 A methodologically critical design decision distinguishes the Tier 2 and Tier 3 models from the Tier 1 baseline: the deliberate exclusion of the lagged disruption state (`w1_stockout_flag`) from the feature space. Including this feature would allow the classifier to achieve high accuracy through naive persistence — simply predicting that next week's state mirrors this week's — without engaging any genuine risk forecasting mechanism. By imposing this information bottleneck, the experimental design forces the classifier to discover predictive structure in the exogenous NLP signals and operational momentum features (Delta variables), thereby validating that any observed performance gain reflects authentic early warning capability rather than autoregressive artifact.
 
-### 5.3. The Preemptive Mitigation Feedback Loop
+### 4.8. The Preemptive Mitigation Feedback Loop
 
 An operationally significant finding emerges from the Tier 3 Logistic Regression coefficients: several NLP-derived features exhibit *negative* regression weights. Under a static forecasting assumption, this would appear paradoxical — risk signals should correlate positively with disruption probability. The resolution lies in recognizing a feedback mechanism: when the EWS generates an alert, procurement teams may proactively activate contingency measures (expedited orders, secondary supplier engagement), thereby *preventing* the predicted disruption from materializing. The negative coefficient thus constitutes evidence of a **Preemptive Mitigation Feedback Loop** — the EWS participates in altering the operational outcome it forecasts, a property that conventional accuracy metrics cannot fully capture but that represents the most desirable operational behavior for a deployed early warning system.
 
-### 5.4. System Latency Sensitivity
+### 4.9. System Latency Sensitivity
 
 Stress-testing under simulated ERP data latency conditions reveals a quantifiable but bounded performance decay. Even under degraded data freshness, the fused model maintains a predictive advantage over the Tier 1 rule-based heuristic, demonstrating the resilience of the multi-modal fusion approach to realistic operational constraints. This finding underscores the robustness of the Cascading AI architecture: the NLP-derived features, being sourced from near-real-time public news feeds, partially compensate for staleness in the ERP signal, providing a hedging effect against data pipeline delays.
 
-### 5.5. Practical Deployment and Domain Transferability
+### 4.10. Practical Deployment and Domain Transferability
 
 The system produces weekly alert outputs — comprising a binary alert flag, calibrated disruption probability, event taxonomy label, and estimated Lead-Time Gain — that can be directly integrated into existing supply chain management dashboards without requiring architectural modifications. The entire pipeline is constructed from open-source frameworks (HuggingFace Transformers, XGBoost, spaCy) and public-domain data (GDELT), enabling domain transfer from aerospace to alternative verticals (electronics, automotive, pharmaceutical) through reconfiguration of keyword filters and the SCRM ontology, without retraining the upstream NLP components.
 
