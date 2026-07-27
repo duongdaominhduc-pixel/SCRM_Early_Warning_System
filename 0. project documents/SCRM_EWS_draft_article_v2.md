@@ -87,9 +87,11 @@ The present study addresses both deficiencies explicitly: walk-forward validatio
 
 The EWS-SCRM system implements a four-stage linear architecture predicated on the Cascading AI principle: each stage produces a progressively refined, higher-fidelity representation of supply chain risk, with explicit quality gates between stages to prevent noise propagation downstream.
 
-*[Figure 1: Research Methodology Framework — to be inserted]*
+**Figure 1.** Research Methodology Framework.
+![Figure 1](./diagram/figure_1_methodology.png)
 
-*[Figure 2: Proposed System Architecture — to be inserted]*
+**Figure 2.** Proposed System Architecture.
+![Figure 2](./diagram/figure_2_architecture.png)
 
 **Table 2.** System architecture: stage-level synthesis.
 
