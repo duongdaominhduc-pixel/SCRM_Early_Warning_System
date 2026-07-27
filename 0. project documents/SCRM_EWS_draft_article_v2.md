@@ -1,7 +1,7 @@
 **APPLICATION OF WEB DATA MINING AND NATURAL LANGUAGE PROCESSING COMBINED WITH MACHINE LEARNING TO BUILD AN EARLY WARNING SYSTEM FOR UPSTREAM SUPPLY CHAIN DISRUPTION RISKS**
 
-**Duc-Duong Dao Minh$^{a*}$, Buu-Tanh Tran-Le$^b$, Huyen-Huynh Chau Nhu$^c$, Thuy-Nguyen Nhut$^d$, Linh-Le Quynh Khanh$^e$**
-$^{a,b,c,d,e}$ *University of Economics and Law, Ho Chi Minh City, Vietnam*
+**Duc-Duong Dao Minh<sup>a*</sup>, Buu-Tanh Tran-Le<sup>a</sup>, Huyen-Huynh Chau Nhu<sup>a</sup>, Thuy-Nguyen Nhut<sup>a</sup>, Linh-Le Quynh Khanh<sup>a</sup>**
+<sup>a</sup>*University of Economics and Law, Ho Chi Minh City, Vietnam*
 * Email address of Corresponding author: ducdmk24406@st.uel.edu.vn
 
 **Abstract**
@@ -64,9 +64,9 @@ This study thoroughly addresses both issues by: applying Walk-forward Validation
 #### 3.1. System Architecture Overview
 The EWS-SCRM system is designed according to a 4-Stage Linear Architecture, applying the "Cascading AI" mindset to optimize the separation of signal detection (Sensing) and context awareness (Sense-making) before synthesis into the Operational Feature Space.
 
-*(INSERT FIGURE 1: Research Methodology Framework HERE)*
+*[Figure 1: Research Methodology Framework (To be designed by authors)]*
 
-*(INSERT FIGURE 2: Proposed System Architecture HERE)*
+*[Figure 2: Proposed System Architecture (To be designed by authors)]*
 
 **Table 2.** System architecture synthesis by stage
 
@@ -93,8 +93,11 @@ During development, the research team faced an "Output Range Collapse" phenomeno
 
 The decision threshold was optimized down to **0.1756** to achieve Recall = 0.9503 (retaining 95% of risk signals) while maintaining Precision = 0.5426 (1.8 times higher than the natural prevalence of ~30%). Consequently, 5,762 articles with actual risk (AT_RISK) were forwarded to Phase 1, reducing the search space by 34%.
 
-*(INSERT FIGURE 3: Gatekeeper diagnostic suite HERE)*
-*(INSERT FIGURE 4: Calibration Comparison between Loss Function configurations HERE)*
+**Figure 3.** Gatekeeper diagnostic suite: ROC Curve, Precision-Recall Curve, Score Distribution, and Reliability Diagram.
+![Figure 3](../P0-04_Binary_Filter/output/p0_04_evaluation.png)
+
+**Figure 4.** Calibration Comparison between Loss Function configurations—illustrating the Output Range Collapse phenomenon in Run 2.
+![Figure 4](../P0-04_Binary_Filter/output/p0_04_calibration_comparison.png)
 
 #### 3.4. Phase 1 — Sense-making Layer (Risk Awareness)
 
@@ -105,7 +108,8 @@ The core difference: the system **does not force labeling**. If no category exce
 **3.4.2. Severity Specialist (P1-02)**
 The P1-02 module assesses severity (Medium vs High Risk) using DistilBERT, employing the **Context Shells** technique—wrapping the Taxonomy label in a complete English sentence: `"Context: This event involves {taxonomy}. Document: {text}"`. This technique outperforms raw Token Injection because it provides full semantic context to the model.
 
-*(INSERT FIGURE 5: SHAP Severity Keywords Analysis HERE)*
+**Figure 5.** SHAP Severity Keywords Analysis—keywords pushing the AI to upgrade the alert to High Risk.
+![Figure 5](../P1-02_Severity_Specialist/shap_severity_keywords.png)
 
 #### 3.5. Phase 2 — Feature Engineering & Machine Learning Layer
 
@@ -141,8 +145,14 @@ The Gatekeeper model achieved ROC-AUC = 0.8927, PR-AUC = 0.8106, and an ECE (Exp
 Results show that the Tier3_XGB_SCRM model (XGBoost integrated with NLP) achieved the **highest Precision** across the experimental matrix: 0.1654 for W+1 and 0.1658 for W+2—improving by **28.6% and 35.3%** respectively compared to Tier2_XGB_Baseline (operational data only). This is the key metric in an early warning environment as it directly reflects the "reliability" of each alert, combating "Alert Fatigue."
 
 **4.4. Phase 3 Results — Threshold Optimization and SHAP**
-*(INSERT FIGURE 6: Global Threshold Sweep HERE)*
-*(INSERT FIGURE 7: SHAP Summary Plot and Waterfall Plot HERE)*
+**Figure 6.** Global Threshold Sweep—illustrating the trade-off between Precision and Recall across decision thresholds.
+![Figure 6](../P3-01_Threshold/global_threshold_sweep.png)
+
+**Figure 7.** SHAP Summary Plot—Overall contribution of each feature to the Stockout risk forecast.
+![Figure 7](../P3-02_SHAP/shap_summary_plot.png)
+
+**Figure 8.** SHAP Waterfall Plot—Local Explanation for a specific data sample, allowing precise tracking of why the system issues an alert.
+![Figure 8](../P3-02_SHAP/shap_waterfall_local.png)
 SHAP analysis reveals that operational features (`w1_on_hand_inventory`, `w1_pct_po_late`) are short-term indicators for material availability, whereas NLP features (`weighted_geo_risk_w1`, `at_risk_count_w1`) act as early warning indicators—appearing prior to operational fluctuations. 
 
 **4.5. Quantitative Lead-Time Gain (LTG) Analysis and Case Study**
@@ -151,7 +161,8 @@ $LTG = T_{stockout} - T_{first\_alert}$
 
 To ensure statistical transparency and avoid Cherry-picking, quantitative analysis across all 18,480 test samples demonstrates the system maintains an average LTG of **1.0 to 3.2 weeks** across all component families (Avionics: 3.2 weeks, Hydraulics: 2.5 weeks, Engine: 1.7 weeks, Structure: 1.4 weeks, Fasteners: 1.3 weeks, LandingGear: 1.2 weeks, Electrical: 1.0 weeks). This provides purchasing managers with a sufficient time window to arrange alternative transport or secure backup supplies.
 
-*(INSERT FIGURE 8: Hero Chart Case Study P00179 HERE)*
+**Figure 9.** Hero Chart—3-tier Case Study chart for component P00179 (Electrical family). Tier 1: Predicted Risk Score; Tier 2: Aggregated NLP Signal from news; Tier 3: Actual operational data (Inventory Level). The orange zone marks the "EWS Warning Period" prior to Stockout.
+![Figure 9](../P3-03_Integration/case_study_hero_chart.png)
 
 #### Discussion
 
