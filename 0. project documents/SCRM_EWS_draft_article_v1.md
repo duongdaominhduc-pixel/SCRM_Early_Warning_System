@@ -292,15 +292,31 @@ Phân tích SHAP cho thấy các đặc trưng vận hành (`w1_on_hand_inventor
 
 ![Hình 6. SHAP Waterfall Local](../P3-02_SHAP/shap_waterfall_local.png)
 
-### 4.5. Case Study: Lead-Time Gain (P00179)
+### 4.5. Phân tích định lượng Lead-Time Gain (LTG) và Case Study
 
-Hệ thống chọn linh kiện P00179 (họ Electrical) — linh kiện có tần suất stockout cao nhất (77 lần) — để phân tích Case Study. Giá trị kinh tế của hệ thống được đánh giá thông qua công thức Lead-Time Gain:
+Giá trị kinh tế cốt lõi của hệ thống Cảnh báo sớm được đánh giá thông qua công thức Lead-Time Gain (Thời gian bù đắp rủi ro):
 
 $$LTG = T_{stockout} - T_{first\_alert}$$
 
-Kết quả cho thấy hệ thống phát cảnh báo sớm **từ 1 đến 2 tuần** trước khi tồn kho thực sự chạm mức 0, cung cấp cho nhà quản lý mua hàng một cửa sổ thời gian đủ để: sắp xếp vận chuyển thay thế, đẩy nhanh tiến độ đơn hàng đang mở, hoặc tìm kiếm nguồn cung từ nhà phân phối khác.
+Để đảm bảo tính minh bạch thống kê và tránh rủi ro lựa chọn số liệu có lợi (Cherry-picking), Bảng 4 trình bày phân tích định lượng (LTG Breakdown) trích xuất từ toàn bộ 18.480 mẫu kiểm thử (Test Set) cho tất cả các nhóm linh kiện.
 
-**Hình 7.** Hero Chart — Biểu đồ Case Study 3 tầng cho linh kiện P00179 (họ Electrical). Tầng 1: Xác suất rủi ro dự báo (Predicted Risk Score); Tầng 2: Tín hiệu NLP tổng hợp từ tin tức; Tầng 3: Dữ liệu vận hành thực tế (Inventory Level). Vùng cam đánh dấu "EWS Warning Period" — cửa sổ cảnh báo sớm 1–2 tuần trước Stockout.
+**Bảng 4.** Phân tích định lượng thời gian cảnh báo sớm (Lead-Time Warning) theo nhóm linh kiện.
+
+| Nhóm linh kiện (Family) | Số đứt gãy phát hiện (Disruptions) | LTG Trung bình (Weeks) | Min LTG | Max LTG |
+|:------------------------|-----------------------------------:|-----------------------:|--------:|--------:|
+| Avionics                |                                 66 |                    3.2 |     1.0 |     8.0 |
+| Electrical              |                                564 |                    1.0 |     1.0 |     3.0 |
+| Engine                  |                                100 |                    1.7 |     1.0 |     8.0 |
+| Fasteners               |                                250 |                    1.3 |     1.0 |     7.0 |
+| Hydraulics              |                                 80 |                    2.5 |     1.0 |     8.0 |
+| LandingGear             |                                187 |                    1.2 |     1.0 |     6.0 |
+| Structure               |                                148 |                    1.4 |     1.0 |     7.0 |
+
+Kết quả cho thấy hệ thống duy trì mức LTG trung bình từ **1.0 đến 3.2 tuần** trên mọi nhóm linh kiện, cung cấp cho nhà quản lý mua hàng một cửa sổ thời gian đủ để: sắp xếp vận chuyển thay thế, đẩy nhanh tiến độ đơn hàng đang mở, hoặc tìm kiếm nguồn cung dự phòng. 
+
+Dưới đây là Case Study mô phỏng diễn biến cảnh báo cho linh kiện P00179 (họ Electrical) — linh kiện có tần suất stockout cao nhất (77 lần).
+
+**Hình 7.** Hero Chart — Biểu đồ Case Study 3 tầng cho linh kiện P00179 (họ Electrical). Tầng 1: Xác suất rủi ro dự báo (Predicted Risk Score); Tầng 2: Tín hiệu NLP tổng hợp từ tin tức; Tầng 3: Dữ liệu vận hành thực tế (Inventory Level). Vùng cam đánh dấu "EWS Warning Period" — cửa sổ cảnh báo sớm trước Stockout.
 
 ![Hình 7. Hero Chart Case Study P00179](../P3-03_Integration/case_study_hero_chart.png)
 

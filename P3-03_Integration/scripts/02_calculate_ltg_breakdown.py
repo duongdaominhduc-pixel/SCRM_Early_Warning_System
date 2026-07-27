@@ -7,7 +7,8 @@ file_path = 'weekly_alerts.csv'
 
 try:
     df = pd.read_csv(file_path)
-    df['week'] = pd.to_datetime(df['week'])
+    # The week format is like "2022-W01". Add '-1' for Monday to parse it properly.
+    df['week'] = pd.to_datetime(df['week'] + '-1', format="%G-W%V-%u")
 except FileNotFoundError:
     print(f"⚠️ Không tìm thấy file: {file_path}")
     print("Tiến hành tạo dữ liệu giả lập (Mock Data) để minh họa bảng kết quả LTG...\n")

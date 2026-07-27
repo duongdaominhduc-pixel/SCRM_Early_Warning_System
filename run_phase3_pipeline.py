@@ -360,6 +360,18 @@ def run_p3_03(df_eval, optimal_thresholds):
     print("RUNNING TASK P3-03: Full Pipeline Integration Test (Case Study)")
     print("="*50)
 
+    # -----------------------------------------------------
+    # Export all weekly alerts for quantitative LTG analysis
+    # -----------------------------------------------------
+    print("Exporting weekly alerts for all components to calculate quantitative LTG...")
+    df_alerts = df_eval.copy()
+    df_alerts['threshold'] = df_alerts['part_family'].map(optimal_thresholds).fillna(0.5)
+    df_alerts['is_alert'] = (df_alerts['y_prob'] >= df_alerts['threshold']).astype(int)
+    df_alerts['y_true'] = df_alerts['y2_shift1'].astype(int)
+    alerts_path = Path("weekly_alerts.csv")
+    df_alerts[['week', 'part_id', 'part_family', 'is_alert', 'y_true', 'y_prob']].to_csv(alerts_path, index=False)
+    print(f"Successfully saved weekly alerts to: {alerts_path}")
+
     # Let's find a part_id with stockout events to make an interesting Case Study
     # Sort parts by total stockout occurrences
     part_stockout_counts = df_eval.groupby('part_id')['y2_shift1'].sum().sort_values(ascending=False)

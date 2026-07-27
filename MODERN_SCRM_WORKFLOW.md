@@ -453,17 +453,19 @@ tscv = TimeSeriesSplit(n_splits=5, gap=2)  # gap=2 tuần ngăn chặn rò rỉ 
 **Folder**: `/P3-03_Integration/`
 
 > **✅ ĐÃ GIẢI QUYẾT (RESOLVED)**: 
+> **Quantitative LTG:** Tính toán Lead-Time Gain định lượng cho toàn bộ hệ thống (export `weekly_alerts.csv`), xóa bỏ nghi ngờ Cherry-picking.
 > **Data Governance:** Chèn công thức toán học $LTG$ và tích hợp cơ chế đóng dấu bảo mật **SHA256 Checksum** tự động vào file `integration_test_report.md` để chống gian lận dữ liệu nghiên cứu.
 
-**Mục tiêu**: Kiểm tra end-to-end (Case Study thực tế) để chứng minh "Lead-Time Gain".
+**Mục tiêu**: Kiểm tra end-to-end để minh họa "Lead-Time Gain" trực quan (Case Study) và định lượng toàn cục (LTG Breakdown).
 
 **Trực quan hóa (Hero Chart)**:
 - Multi-panel Time Series (Tầng 1: Risk Score, Tầng 2: NLP Signal, Tầng 3: ERP Reality).
 - Highlight vùng "Warning Period".
 
 **Output**:
-- `integration_test_report.md`
+- `integration_test_report.md` (SHA256 secured)
 - `case_study_hero_chart.png`
+- `weekly_alerts.csv` (Log cảnh báo toàn cục cho LTG Breakdown)
 
 ---
 
