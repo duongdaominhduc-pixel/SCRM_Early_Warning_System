@@ -10,9 +10,9 @@
 
 ## Abstract
 
-Upstream supply chain disruptions impose disproportionate economic losses on manufacturing firms, yet existing forecasting approaches remain confined to a single data modality — either mining unstructured news without connecting to internal operational states, or analyzing enterprise resource planning (ERP) records while ignoring exogenous risk signals. This methodological insularity leaves a critical blind-spot: no validated pipeline demonstrates whether fusing heterogeneous modalities yields measurable Incremental Predictive Validity over unimodal baselines. To bridge this gap, the present study proposes a four-stage Cascading AI architecture (Sensing, Sense-making, Feature Fusion, Evaluation) that sequentially transforms raw logistics news into calibrated risk features via DistilBERT-based binary filtering and zero-shot multi-label classification, then fuses these features with structured ERP data through a Geographic Weighting function before training gradient-boosted classifiers. Experiments on 8,728 logistics news articles (2022–2024) and five aerospace operational datasets yield three principal findings: (1) the Gatekeeper binary filter achieves ROC-AUC = 0.8927, Recall = 0.9503, and ECE = 0.0849; (2) the fused XGBoost model (Tier 3) attains Precision = 0.1654 on minority-class stockout prediction — a 28.7% relative improvement over the ERP-only baseline (Tier 2), substantiating the Incremental Predictive Validity of NLP-derived features; and (3) the system provides a quantifiable Lead-Time Gain of 1.0 to 3.2 weeks across all component families prior to actual disruption onset. These results validate that systematically integrating public-domain textual signals with operational telemetry produces a statistically significant and operationally actionable early warning capability for upstream inventory risk.
+*Existing supply chain disruption forecasting approaches remain confined to a single data modality, leaving a critical blind-spot: no validated pipeline demonstrates whether fusing heterogeneous modalities yields measurable Incremental Predictive Validity over unimodal baselines. This study proposes a four-stage Cascading AI architecture that transforms raw logistics news into calibrated risk features via DistilBERT-based binary filtering and zero-shot multi-label classification, then fuses them with structured ERP data through a Geographic Weighting function before training gradient-boosted classifiers. Experiments on 8,728 logistics news articles (2022–2024) and five aerospace operational datasets yield three principal findings: (1) the Gatekeeper binary filter achieves ROC-AUC = 0.8927 and Recall = 0.9503; (2) the fused XGBoost model attains Precision = 0.1654 on minority-class stockout prediction — a 28.7% relative improvement over the ERP-only baseline, substantiating Incremental Predictive Validity; and (3) the system provides a Lead-Time Gain of 1.0 to 3.2 weeks across all component families prior to disruption onset. These results validate that integrating public-domain textual signals with operational telemetry produces an actionable early warning capability for upstream inventory risk.*
 
-**Keywords:** Supply Chain Risk Management; Natural Language Processing; Heterogeneous Data Fusion; Early Warning System; Gradient Boosting; Inventory Disruption Forecasting
+**Keywords:** **Supply Chain Risk Management; Natural Language Processing; Heterogeneous Data Fusion; Early Warning System; Inventory Disruption Forecasting**
 
 ---
 
@@ -169,7 +169,9 @@ The evaluation protocol enforces temporal integrity through a strict **chronolog
 
 ---
 
-## 4. Results
+## 4. Results and Discussion
+
+### Results
 
 ### 4.1. Experimental Data Profile
 
@@ -231,7 +233,7 @@ The system maintains an LTG range of 1.0 to 3.2 weeks across all component famil
 
 ---
 
-## 5. Discussion
+### Discussion
 
 ### 5.1. Interpreting the Precision-Recall Trade-Off Under Asymmetric Cost
 
@@ -255,7 +257,7 @@ The system produces weekly alert outputs — comprising a binary alert flag, cal
 
 ---
 
-## 6. Conclusion
+## 5. Conclusion
 
 This study designed, implemented, and validated an upstream supply chain risk Early Warning System (EWS-SCRM) that bridges the Modality Decoupling gap through a four-stage Cascading AI architecture. Three contributions were empirically substantiated: (C1) a heterogeneous fusion pipeline that transforms unstructured news into ML-ready risk features and integrates them with structured ERP telemetry, yielding a 28.7% Precision improvement over the unimodal operational baseline; (C2) a Geographic Weighting mechanism that resolves the granularity mismatch between macro-level news entities and micro-level supplier records, operationalizing the Ripple Effect for spatial risk propagation; and (C3) a rigorous information bottleneck design — enforced through ADF-tested stationarity, deliberate feature exclusion, and walk-forward temporal validation — that guarantees non-naive learning and precludes autoregressive shortcutting.
 
