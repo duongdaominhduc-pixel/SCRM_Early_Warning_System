@@ -1,6 +1,6 @@
 # Schematic Outlines for the 2 Core Diagrams (SOTA V2.0)
 
-This file defines the structure (Nodes) and flows (Edges) for drawing the two most important diagrams in the manuscript. It has been standardized based on the actual V2.0 system and **ensures 100% terminology alignment with the manuscript content (Phases 0-3, Geographic Weighting, Cascading Stage)**.
+This file defines the structure (Nodes) and flows (Edges) for drawing the two most important diagrams in the manuscript. It has been standardized based on the actual V2.0 system and **ensures 100% terminology alignment with the manuscript content**.
 
 ---
 
@@ -9,35 +9,59 @@ This file defines the structure (Nodes) and flows (Edges) for drawing the two mo
 **Objective:** Visualize the journey from raw data to Actionable Intelligence.
 **Recommended Style:** Vertical Flowchart (Top-Down) or Block Diagram.
 
-> **⚠️ UPDATE REQUIREMENT:** Rename the blocks (Phases) to perfectly match section 3. Methodology in the manuscript (starting from Phase 0). Separate Data Collection from the main Phases.
+### Mermaid Visualization
 
-### Key Nodes & Edges:
+```mermaid
+flowchart TD
+    classDef data fill:#f9f9f9,stroke:#333,stroke-width:2px;
+    classDef phase fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
+    classDef gate fill:#ffebee,stroke:#f44336,stroke-width:2px,stroke-dasharray: 5 5;
 
-**Preparation (Data Collection - Corresponding to section 3.2):**
-- Node A: Textual Data Source (GDELT Project & NewsAPI, 2022-2024, ~7,200 articles).
-- Node B: Operational Data Source (Aerospace Inbound Logistics, Inventory & Lead-time).
-- *Arrow:* Pointing down to Block 1.
+    subgraph Data Collection [Data Collection - Section 3.2]
+        A[Textual Data Source<br/>GDELT & NewsAPI]:::data
+        B[Operational Data Source<br/>Aerospace Inventory & Lead-time]:::data
+    end
 
-**Block 1: Phase 0 - Sensing Layer (Corresponding to section 3.3)**
-- Node C: Binary Filter (Risk filtering using DistilBERT).
-- Node D: *[QUALITY GATE 1]* Fleiss' Kappa = 0.785 (dashed border, red color).
+    subgraph Phase 0 [Phase 0: Sensing Layer]
+        C[Binary Filter<br/>DistilBERT]:::phase
+        D{QUALITY GATE 1<br/>Fleiss' Kappa = 0.785}:::gate
+    end
 
-**Block 2: Phase 1 - Sense-making Layer (Corresponding to section 3.4)**
-- Node E: Taxonomy Extraction (Multi-label Event Tagging).
-- Node F: Severity Specialist (Severity assessment using Context Shells).
-- Node G: Time-Series Alignment – ISO Week format.
+    subgraph Phase 1 [Phase 1: Sense-making Layer]
+        E[Taxonomy Extraction<br/>Multi-label Event Tagging]:::phase
+        F[Severity Specialist<br/>Context Shells]:::phase
+        G[Time-Series Alignment<br/>ISO Week Format]:::phase
+    end
 
-**Block 3: Phase 2 - Feature Fusion and Machine Learning (Corresponding to section 3.5)**
-- Node H: ADF Stationarity Test & Delta Momentum.
-- Node I: Feature Extraction (Geographic Weighting).
-- Node J: Walk-forward Validation (5 Folds, Chronological Split).
-- Node K: Ablation Study (Tier 1 Baseline, Tier 2 Baseline, Tier 3 Hybrid).
+    subgraph Phase 2 [Phase 2: Feature Fusion & ML]
+        H[ADF Stationarity Test<br/>& Delta Momentum]:::phase
+        I[Feature Extraction<br/>Geographic Weighting]:::phase
+        J[Walk-forward Validation<br/>5 Folds]:::phase
+        K[Ablation Study<br/>Tier 1, 2, 3]:::phase
+    end
 
-**Block 4: Phase 3 - Evaluation and Data Governance (Corresponding to section 3.6)**
-- Node L: Core Metrics (PR-AUC, F1-Score, Brier Score).
-- Node M: Explainability & Visualization (SHAP Value).
-- Node N: *[QUALITY GATE 2]* Lead-Time Gain (LTG) Analysis (Economic efficiency assessment).
-- *Feedback flow:* Dashed arrow (Feedback Loop) returning to Phase 1 (demonstrating Proactive Resilience).
+    subgraph Phase 3 [Phase 3: Evaluation & Data Governance]
+        L[Core Metrics<br/>PR-AUC, F1, Brier]:::phase
+        M[Explainability<br/>SHAP Value]:::phase
+        N{QUALITY GATE 2<br/>Lead-Time Gain Analysis}:::gate
+    end
+
+    A --> C
+    B --> H
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H --> I
+    I --> J
+    J --> K
+    K --> L
+    L --> M
+    M --> N
+
+    N -. "Feedback Loop (Proactive Resilience)" .-> E
+```
 
 ---
 
@@ -46,29 +70,50 @@ This file defines the structure (Nodes) and flows (Edges) for drawing the two mo
 **Objective:** Display the internal structure of the 3-Stage AI model (Cascading AI).
 **Recommended Style:** 3 Stacked Layers (Stage).
 
-> **⚠️ UPDATE REQUIREMENT:** 
-> 1. Change the word "Layer" to "Stage" to align with the "four-stage Cascading AI architecture" keyword in section 3.1.
-> 2. Add all 4 Geographic Weighting constants (Exact, Country, Region, Global).
+### Mermaid Visualization
 
-### Key Nodes & Edges:
+```mermaid
+flowchart TD
+    classDef stage1 fill:#e8eaf6,stroke:#3f51b5,stroke-width:2px;
+    classDef stage2 fill:#e8f5e9,stroke:#4caf50,stroke-width:2px;
+    classDef stage3 fill:#fce4ec,stroke:#e91e63,stroke-width:2px;
+    classDef lock fill:#fff3e0,stroke:#ff9800,stroke-width:2px,stroke-dasharray: 5 5;
 
-**Stage 1: NLP Sensing & Taxonomy-Conditioned AI**
-- Node L1.1: News Text Input.
-- Node L1.2: Binary Filter.
-- Node L1.3: Universal Information Extraction (UIE) - Multi-label Event Tagging (Taxonomy).
-- Node L1.4: Context Shells Injection (Example: `[PORT_CONGESTION] Text...`).
-- Node L1.5: Severity Specialist.
-- *Stage 1 Output:* `at_risk_count`, `high_severity_count`, `dominant_event_type`.
+    subgraph Stage1 [Stage 1: NLP Sensing & Taxonomy-Conditioned AI]
+        L1_1[News Text Input]:::stage1
+        L1_2[Binary Filter]:::stage1
+        L1_3[UIE: Multi-label Event Tagging]:::stage1
+        L1_4[Context Shells Injection<br/>e.g. PORT_CONGESTION]:::stage1
+        L1_5[Severity Specialist]:::stage1
+    end
 
-**Stage 2: Operational Mapping & Feature Generation**
-- Node L2.1: Geographic Weighting (Spatial risk computation: **Exact=1.0, Country=0.6, Region=0.3, Global=0.1**).
-- Node L2.2: Inbound Metrics Extraction.
-- Node L2.3: Delta Features Generation (`delta_avg_actual_lead_time`).
-- *Stage 2 Output:* `weighted_geo_risk_w1`, `avg_actual_lead_time_w1`, etc.
+    subgraph Stage2 [Stage 2: Operational Mapping & Feature Generation]
+        L2_1[Geographic Weighting<br/>Exact=1.0, Country=0.6, Region=0.3, Global=0.1]:::stage2
+        L2_2[Inbound Metrics Extraction]:::stage2
+        L2_3[Delta Features Generation]:::stage2
+    end
 
-**Stage 3: Intelligence Fusion & Data Integrity**
-- Node L3.1: Feature Matrix X (combining Output L1 and L2 at W-1 and W-2).
-- Node L3.2: *[INTEGRITY LOCK]* Lock icon with `SHA256 Checksum`.
-- Node L3.3: XGBoost Model (Cost-Sensitive Learning via `scale_pos_weight`).
-- Node L3.4: Target Shift Mechanism (Forecast Y at W+1, W+2).
-- *Final Output:* Early Warning Alert Probability & SHAP Explanations.
+    subgraph Stage3 [Stage 3: Intelligence Fusion & Data Integrity]
+        L3_1[Feature Matrix X<br/>W-1, W-2]:::stage3
+        L3_2{INTEGRITY LOCK<br/>SHA256 Checksum}:::lock
+        L3_3[XGBoost Model<br/>Cost-Sensitive]:::stage3
+        L3_4[Target Shift Mechanism<br/>Forecast Y at W+1, W+2]:::stage3
+    end
+
+    Out1([Output Stage 1:<br/>at_risk_count, high_severity_count, dominant_event_type])
+    Out2([Output Stage 2:<br/>weighted_geo_risk_w1, avg_actual_lead_time_w1, etc.])
+    Out3([Final Output:<br/>Early Warning Alert Probability & SHAP Explanations])
+
+    L1_1 --> L1_2 --> L1_3 --> L1_4 --> L1_5
+    L1_5 --> Out1
+
+    Out1 --> L2_1
+    Out1 --> L2_2
+    L2_1 --> L2_3
+    L2_2 --> L2_3
+    L2_3 --> Out2
+
+    Out2 --> L3_1
+    L3_1 --> L3_2 --> L3_3 --> L3_4
+    L3_4 --> Out3
+```
