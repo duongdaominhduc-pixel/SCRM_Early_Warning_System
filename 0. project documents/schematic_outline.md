@@ -15,7 +15,7 @@ You can use this layout as a direct visual guide:
 ```mermaid
 flowchart TD
     subgraph Preparation ["Data Collection (Section 3.2)"]
-        A[Textual Data Source<br>GDELT & NewsAPI<br>~7,200 articles]
+        A[Textual Data Source<br>Four Major Industry News Portals<br>8,728 articles]
         B[(Operational Data Source<br>ERP: parts, PO, history, quality, locations)]
     end
 

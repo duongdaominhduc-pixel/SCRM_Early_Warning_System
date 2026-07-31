@@ -20,9 +20,9 @@
 
 ### 1.1. Motivation and Operational Context
 
-The grounding of the container vessel *Ever Given* in the Suez Canal (March 2021) — incurring an estimated USD 9.6 billion in trade losses over six days — exposed a structural fragility that subsequent crises have only reinforced. The 2021–2023 semiconductor shortage cascade compelled aerospace and automotive manufacturers to curtail production, while the Red Sea shipping diversions of 2024 re-demonstrated that single-point-of-failure vulnerabilities propagate nonlinearly through multi-tier supply networks. Gartner (2023) reports that 87% of manufacturing enterprises experienced at least one material supply disruption between 2020 and 2023.
+The grounding of the container vessel *Ever Given* in the Suez Canal (March 2021) — incurring an estimated USD 9.6 billion in daily blocked trade value (Lee & Wong, 2021) — exposed a structural fragility that subsequent crises have only reinforced. The 2021–2023 semiconductor shortage cascade compelled aerospace and automotive manufacturers to curtail production (Ivanov, 2022), while the Red Sea shipping diversions of 2024 re-demonstrated that single-point-of-failure vulnerabilities propagate nonlinearly through multi-tier supply networks (Notteboom et al., 2024). The Business Continuity Institute (BCI, 2023) reports that disruption frequency remains more than twice as high as pre-pandemic levels; among surveyed organizations, 84.6% experienced increased cost of working and 77.6% reported loss of revenue as direct consequences of supply chain disruption events.
 
-The critical operational challenge is temporal: risk signals — port congestion reports, labor dispute announcements, geopolitical sanction notices — typically surface in the public information environment *before* their consequences materialize as inventory depletion or assembly-line stoppages. The interval between the earliest detectable exogenous signal and the onset of operational impact constitutes the actionable early warning window. Converting this latent informational lead into a reliable, quantified decision support instrument remains an unsolved problem in Supply Chain Risk Management (SCRM).
+The critical operational challenge is temporal: risk signals — port congestion reports, labor dispute announcements, geopolitical sanction notices — typically surface in the public information environment *before* their consequences materialize as inventory depletion or assembly-line stoppages (Craighead et al., 2007; Ivanov, 2022). The interval between the earliest detectable exogenous signal and the onset of operational impact constitutes the actionable early warning window. Converting this latent informational lead into a reliable, quantified decision support instrument remains a largely open challenge in Supply Chain Risk Management (SCRM). Although recent studies have explored individual components — such as NLP-based risk detection (Cano-Marin et al., 2023) or ML-driven disruption forecasting (Ni et al., 2023) — few validated pipelines demonstrate end-to-end fusion of unstructured external signals with structured operational telemetry, leaving the incremental predictive value of such integration empirically unsubstantiated.
 
 ### 1.2. Research Problem
 
@@ -106,7 +106,7 @@ The EWS-SCRM system implements a four-stage linear architecture predicated on th
 
 **3.2.1. External Signal: News Corpus**
 
-The textual corpus was assembled from two complementary sources — the GDELT BigQuery Index and the NewsAPI — using a domain-specific keyword filter targeting supply chain disruption, logistics risk, port congestion, and supplier shortage. Deduplication was performed via cosine similarity on TF-IDF representations (threshold $\geq$ 0.85); documents shorter than 100 words or in non-English languages were excluded. The resulting corpus comprises **8,728 articles** spanning the 2022–2024 period.
+The textual corpus was assembled by aggregating publicly accessible articles from four prominent global logistics and supply chain industry news portals. Deduplication was performed via cosine similarity on TF-IDF representations (threshold $\geq$ 0.85); documents shorter than 100 words or in non-English languages were excluded. The resulting corpus comprises **8,728 articles** spanning the 2022–2024 period.
 
 **3.2.2. Internal Signal: Operational ERP Data**
 
@@ -259,7 +259,7 @@ Stress-testing under simulated ERP data latency conditions reveals a quantifiabl
 
 ### 4.10. Practical Deployment and Domain Transferability
 
-The system produces weekly alert outputs — comprising a binary alert flag, calibrated disruption probability, event taxonomy label, and estimated Lead-Time Gain — that can be directly integrated into existing supply chain management dashboards without requiring architectural modifications. The entire pipeline is constructed from open-source frameworks (HuggingFace Transformers, XGBoost, spaCy) and public-domain data (GDELT), enabling domain transfer from aerospace to alternative verticals (electronics, automotive, pharmaceutical) through reconfiguration of keyword filters and the SCRM ontology, without retraining the upstream NLP components.
+The system produces weekly alert outputs — comprising a binary alert flag, calibrated disruption probability, event taxonomy label, and estimated Lead-Time Gain — that can be directly integrated into existing supply chain management dashboards without requiring architectural modifications. The entire pipeline is constructed from open-source frameworks (HuggingFace Transformers, XGBoost, spaCy) and publicly accessible news data, enabling domain transfer from aerospace to alternative verticals (electronics, automotive, pharmaceutical) through reconfiguration of keyword filters and the SCRM ontology, without retraining the upstream NLP components.
 
 ---
 
