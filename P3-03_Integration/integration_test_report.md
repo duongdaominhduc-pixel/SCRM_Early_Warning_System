@@ -16,4 +16,4 @@ $$LTG = T_{stockout} - T_{first\_alert}$$
 - **Operational Benefit:** This warning gives procurement managers a critical buffer window to arrange alternative shipping, expedite open purchase orders, or source parts from other distributors, completely preventing stockout-related delays in production.
 
 ## 3. Data Governance (SHA256 Checksums)
-- **Hero Chart SHA256:** `a9c8440f1f2a63d47feac0b649aec3f10d1ebd21db83c651d68e95ac8e7ab3d1`
+- **Hero Chart SHA256:** `898b0fa79a77e16715a2f7cf2a0cd88ee79d058619916a6537fd008264f2e6e8`

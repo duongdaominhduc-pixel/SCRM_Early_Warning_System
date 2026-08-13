@@ -281,11 +281,12 @@ def run_p3_02(df_eval, model_file_name="Tier3_XGB_SCRM_y2_shift1.pkl"):
                 matches = df_eval[(df_eval['part_id'] == 'P00179') & (df_eval['y2_shift1'] == 1.0)].index
                 if len(matches) > 0:
                     p00179_idx = matches[0]
-            shap.plots.waterfall(explainer(X_proc[p00179_idx:p00179_idx+1])[0], show=False)
-        plt.title('SHAP Local Waterfall Explanation')
-        plt.tight_layout()
+            explanation = explainer(X_proc[p00179_idx:p00179_idx+1])[0]
+            explanation.feature_names = features
+            shap.plots.waterfall(explanation, max_display=len(features)+1, show=False)
+        plt.title('SHAP Local Waterfall Explanation', pad=20)
         waterfall_path = P3_02_DIR / "shap_waterfall_local.png"
-        plt.savefig(waterfall_path, dpi=300)
+        plt.savefig(waterfall_path, dpi=300, bbox_inches='tight')
         plt.close()
         print(f"SHAP plots saved successfully under {P3_02_DIR}")
         
@@ -403,7 +404,7 @@ def run_p3_03(df_eval, optimal_thresholds):
     actual_stockouts = df_part['y2_shift1'].values # stockout at week W+1
     
     # Plotting
-    fig, axes = plt.subplots(3, 1, figsize=(12, 10), sharex=True)
+    fig, axes = plt.subplots(3, 1, figsize=(16, 8), sharex=True)
     
     # Panel 1: Predicted Risk Score
     axes[0].plot(weeks, prob_scores, label='Predicted Risk Score (XGB SCRM Probability)', color='crimson', linewidth=2)
@@ -440,8 +441,11 @@ def run_p3_03(df_eval, optimal_thresholds):
     axes[2].grid(True)
     axes[2].legend(loc='upper left')
     
-    # Format x axis to rotate labels nicely
-    plt.xticks(rotation=45)
+    # Format x axis to show fewer ticks and rotate them
+    n_weeks = len(weeks)
+    step = max(1, n_weeks // 12)
+    axes[2].set_xticks(range(0, n_weeks, step))
+    axes[2].set_xticklabels(weeks[::step], rotation=45)
     plt.tight_layout()
     
     hero_chart_path = P3_03_DIR / "case_study_hero_chart.png"

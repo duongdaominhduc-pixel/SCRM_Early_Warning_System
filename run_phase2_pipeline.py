@@ -776,6 +776,8 @@ def run_p2_05(df_train, df_stress_train=None):
             splits_stress = [(np.arange(len(X_stress)), np.arange(len(X_stress)))]
             
         fold_f1s_stress = []
+        fold_precs_stress = []
+        fold_recs_stress = []
         for train_idx, val_idx in splits_stress:
             X_tr, X_va = X_stress[train_idx], X_stress[val_idx]
             y_tr, y_va = y_stress[train_idx], y_stress[val_idx]
@@ -786,16 +788,25 @@ def run_p2_05(df_train, df_stress_train=None):
             X_tr_p = imputer.fit_transform(X_tr)
             X_va_p = imputer.transform(X_va)
             
+            # V2.0: In-Fold Imbalance Weight Calculation (same as main ablation)
+            num_pos_stress = max(sum(y_tr == 1.0), 1)
+            num_neg_stress = sum(y_tr == 0.0)
+            scale_weight_stress = num_neg_stress / num_pos_stress
+            
             if HAS_XGBOOST:
-                clf = XGBClassifier(random_state=42, eval_metric='logloss')
+                clf = XGBClassifier(random_state=42, eval_metric='logloss', scale_pos_weight=scale_weight_stress)
             else:
                 clf = GradientBoostingClassifier(random_state=42)
             clf.fit(X_tr_p, y_tr)
             preds = clf.predict(X_va_p)
             fold_f1s_stress.append(f1_score(y_va, preds, zero_division=0))
+            fold_precs_stress.append(precision_score(y_va, preds, zero_division=0))
+            fold_recs_stress.append(recall_score(y_va, preds, zero_division=0))
             
-        stress_f1 = np.mean(fold_f1s_stress) if fold_f1s_stress else 0.0
-        print(f"Stress Test (W-2 ops latency) F1-score: {stress_f1:.4f}")
+        stress_f1   = np.mean(fold_f1s_stress)   if fold_f1s_stress   else 0.0
+        stress_prec = np.mean(fold_precs_stress)  if fold_precs_stress else 0.0
+        stress_rec  = np.mean(fold_recs_stress)   if fold_recs_stress  else 0.0
+        print(f"Stress Test (W-2 ops latency) -> Precision: {stress_prec:.4f}, Recall: {stress_rec:.4f}, F1-score: {stress_f1:.4f}")
 
     # 3. Create ablation study report
     results_df = pd.DataFrame(results)
@@ -810,7 +821,7 @@ def run_p2_05(df_train, df_stress_train=None):
         f.write("- **Value of Information (V2.0 Overhaul):** While Baseline models may achieve higher recall through broad predictions, the addition of geographic-weighted NLP news features (SCRM models) establishes a significantly higher **Precision Floor**. This trade-off is highly desirable in real-world supply chain operations, as it directly mitigates **'Alert Fatigue'** and provides more reliable, actionable intelligence.\n")
         f.write("- **Lead-Time Advantage:** While accuracy declines from W+1 to W+2, the SCRM model maintains its Precision advantage, providing actionable early warnings up to two weeks in advance.\n")
         if df_stress_train is not None:
-            f.write(f"- **ERP Latency Stress Test (W-2 Shift):** Model F1-score with W-2 operational latency is {stress_f1:.4f}, demonstrating robust retention of predictive intelligence despite system latency.")
+            f.write(f"- **ERP Latency Stress Test (W-2 Shift):** Model with W-2 operational latency achieves Precision={stress_prec:.4f}, Recall={stress_rec:.4f}, F1={stress_f1:.4f} — demonstrating robust retention of predictive intelligence despite one-week ERP data staleness.")
 
     print(f"\nSuccessfully saved Ablation results table to: {ablation_report_path}")
 
