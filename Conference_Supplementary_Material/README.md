@@ -44,4 +44,3 @@ Conference_Supplementary_Material/
 └── requirements.txt                  # Python dependencies
 ```
 
-*Note: Heavy data files (.parquet, .csv, .pkl models) are intentionally excluded from this supplementary package to comply with size limitations and protect proprietary operational data.*
