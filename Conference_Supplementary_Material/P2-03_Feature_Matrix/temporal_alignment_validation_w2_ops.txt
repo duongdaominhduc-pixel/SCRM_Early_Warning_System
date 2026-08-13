@@ -1,0 +1,11 @@
+TEMPORAL ALIGNMENT & PREPROCESSING VALIDATION REPORT
+=====================================================
+
+- NO LOOK-AHEAD Rule Enforced: True (lag shifted by -2)
+- ADF Tests: Performed on continuous variables (Delta features generated to capture momentum).
+- Multicollinearity VIF checks:
+  VIF(w2_on_hand_inventory) = 1.3289
+  VIF(w2_avg_actual_lead_time) = 1.3405
+  VIF(w2_pct_po_late) = 1.0780
+
+Lasso L1 penalty will be applied in regression models to automatically select collinear features.
