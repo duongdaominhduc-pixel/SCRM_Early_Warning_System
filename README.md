@@ -12,7 +12,7 @@ Kính gửi Thầy/Cô hướng dẫn,
 
 ### 1. Báo cáo Khoa học Chính thức (Bản Draft Article)
 Toàn bộ phương pháp luận, kết quả thực nghiệm, tính toán Lead-Time Gain, và các kiểm định thống kê đều được tổng hợp chi tiết trong bản thảo bài báo chuẩn Q1:
-👉 **File đọc chính:** [`0. project documents/1. Final Articles/SCRM_EWS_draft_article_v3.md`](0.%20project%20documents/1.%20Final%20Articles/SCRM_EWS_draft_article_v3.md)
+👉 **File đọc chính:** [`0. project documents/1. Final Articles/SCRM_EWS_draft_article.docx`](0.%20project%20documents/1.%20Final%20Articles/SCRM_EWS_draft_article.docx)
 *(Đây là bản hoàn thiện cuối cùng, đã cập nhật đầy đủ số liệu từ quá trình sửa lỗi Data Leakage, tinh chỉnh Walk-forward Cross Validation và hoàn thiện kịch bản Stress Test).*
 
 ### 2. Những cập nhật Phương pháp luận Quan trọng nhất (Methodological Highlights)
